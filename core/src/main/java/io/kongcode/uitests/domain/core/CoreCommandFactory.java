@@ -35,4 +35,8 @@ public class CoreCommandFactory {
     public static Command createCheckText(String selector, String text) {
         return new CheckTextCommand(selector, text);
     }
+
+    public static Command createFillText(String selector, String text) {
+        return new FillTextCommand(selector, text);
+    }
 }
