@@ -39,4 +39,8 @@ public class CoreCommandFactory {
     public static Command createFillText(String selector, String text) {
         return new FillTextCommand(selector, text);
     }
+
+    public static Command createSelectOption(String selectSelector, String optionText) {
+        return new SelectOptionCommand(selectSelector, optionText);
+    }
 }
