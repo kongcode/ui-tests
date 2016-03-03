@@ -17,25 +17,31 @@
 
 package io.kongcode.uitests.domain.core;
 
+import org.junit.Test;
+
+import java.io.File;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectOptionCommand implements CoreCommand {
-    public final String selectSelector;
-    public final String optionValue;
+public class SelectOptionCommandITest {
 
-    public SelectOptionCommand(String selectSelector, String optionValue) {
-        this.selectSelector = selectSelector;
-        this.optionValue = optionValue;
-    }
-
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.SELECT_OPTION;
-    }
-
-    @Override public void execute() {
-        $(selectSelector).selectOptionByValue(optionValue);
+    @Test public void testExecute() throws Exception {
+        String url =
+            "file:" + new File("src/test/resources/command-itest/SelectOptionCommandITest.html")
+                .getAbsolutePath();
+        String selector = "#select";
+        open(url);
+        $(selector).shouldHave(value("1")).shouldHave(text("Text1"));
+        for (int i = 3; i > 0; i--) {
+            String optionValue = String.valueOf(i);
+            CoreCommandFactory.createSelectOption(selector, optionValue).execute();
+            $(selector).shouldHave(value(optionValue)).shouldHave(text("Text" + optionValue));
+        }
     }
 }
