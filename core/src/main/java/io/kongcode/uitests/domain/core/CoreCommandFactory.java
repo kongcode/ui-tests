@@ -31,4 +31,8 @@ public class CoreCommandFactory {
     public static Command createClick(String selector) {
         return new ClickCommand(selector);
     }
+
+    public static Command createCheckText(String selector, String text) {
+        return new CheckTextCommand(selector, text);
+    }
 }
