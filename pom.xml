@@ -26,6 +26,13 @@
             <distribution>manual</distribution>
         </license>
     </licenses>
+    <developers>
+        <developer>
+            <id>jpfperondini</id>
+            <name>João Pedro Ferraresso Perondini</name>
+            <email>jpfperondini@gmail.com</email>
+        </developer>
+    </developers>
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.kongcode.uitests</groupId>
     <artifactId>ui-tests</artifactId>
