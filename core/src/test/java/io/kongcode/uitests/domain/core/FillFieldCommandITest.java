@@ -17,25 +17,28 @@
 
 package io.kongcode.uitests.domain.core;
 
+import org.junit.Test;
+
+import java.io.File;
+
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class FillTextCommand implements CoreCommand {
-    public final String selector;
-    public final String text;
+public class FillFieldCommandITest {
 
-    public FillTextCommand(String selector, String text) {
-        this.selector = selector;
-        this.text = text;
-    }
-
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.FILL_FIELD;
-    }
-
-    @Override public void execute() {
-        $(selector).setValue(text);
+    @Test public void testExecute() throws Exception {
+        String selector = "#input";
+        String inputText = "text";
+        String url =
+            "file:" + new File("src/test/resources/command-itest/FillFieldCommandITest.html")
+                .getAbsolutePath();
+        open(url);
+        $(selector).shouldNotHave(value(inputText));
+        CoreCommandFactory.createFillText(selector, inputText).execute();
+        $(selector).shouldHave(value(inputText));
     }
 }
