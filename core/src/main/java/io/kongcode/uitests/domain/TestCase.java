@@ -37,13 +37,14 @@ public final class TestCase {
         this.commands = commands;
     }
 
+    public static TestCaseBuilder builder() {
+        return new TestCaseBuilder();
+    }
+
     public void run() {
         commands.forEach(Command::execute);
     }
 
-    public static TestCaseBuilder builder() {
-        return new TestCaseBuilder();
-    }
 
     public static class TestCaseBuilder {
         private Integer id;

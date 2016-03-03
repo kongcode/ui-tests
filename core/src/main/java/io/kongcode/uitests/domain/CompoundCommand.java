@@ -37,13 +37,14 @@ public final class CompoundCommand implements Command {
         this.commands = commands;
     }
 
+    public static CompoundCommandBuilder builder() {
+        return new CompoundCommandBuilder();
+    }
+
     @Override public void execute() {
         commands.forEach(Command::execute);
     }
 
-    public static CompoundCommandBuilder builder() {
-        return new CompoundCommandBuilder();
-    }
 
     public static class CompoundCommandBuilder {
         private Integer id;

@@ -30,8 +30,9 @@ import static com.codeborne.selenide.Selenide.$;
 public class NavigateCommandITest {
 
     @Test public void testExecute() throws Exception {
-        String url = "file:" + new File("src/test/resources/command-itest/NavigateCommandITest.html")
-            .getAbsolutePath();
+        String url =
+            "file:" + new File("src/test/resources/command-itest/NavigateCommandITest.html")
+                .getAbsolutePath();
         CoreCommandFactory.createNavigate(url).execute();
         $("#test").shouldHave(text("NavigateCommandITest"));
     }
