@@ -29,5 +29,6 @@ public class NavigateCommandTest {
         String url = "/url";
         NavigateCommand command = (NavigateCommand) CoreCommandFactory.createNavigate(url);
         assertEquals(url, command.url);
+        assertEquals(CoreCommandType.NAVIGATE, command.getType());
     }
 }

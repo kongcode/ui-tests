@@ -30,5 +30,6 @@ public class ClickCommandTest {
         String selector = "selector";
         ClickCommand command = (ClickCommand) CoreCommandFactory.createClick(selector);
         assertEquals(selector, command.selector);
+        assertEquals(CoreCommandType.CLICK, command.getType());
     }
 }
