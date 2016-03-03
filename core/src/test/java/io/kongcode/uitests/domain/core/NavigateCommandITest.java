@@ -14,6 +14,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package io.kongcode.uitests.domain.core;
 
 import org.junit.Test;
@@ -29,8 +30,8 @@ import static com.codeborne.selenide.Selenide.$;
 public class NavigateCommandITest {
 
     @Test public void testExecute() throws Exception {
-        String url =
-            "file:" + new File("src/it/resources/NavigateCommandITest.html").getAbsolutePath();
+        String url = "file:" + new File("src/test/resources/command-itest/NavigateCommandITest.html")
+            .getAbsolutePath();
         CoreCommandFactory.createNavigate(url).execute();
         $("#test").shouldHave(text("NavigateCommandITest"));
     }
