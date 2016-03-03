@@ -27,4 +27,8 @@ public class CoreCommandFactory {
     public static Command createNavigate(String url) {
         return new NavigateCommand(url);
     }
+
+    public static Command createClick(String selector) {
+        return new ClickCommand(selector);
+    }
 }
