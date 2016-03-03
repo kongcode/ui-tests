@@ -18,26 +18,28 @@
 package io.kongcode.uitests.domain.core;
 
 import com.codeborne.selenide.Condition;
+import org.junit.Test;
+
+import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class CheckTextCommand implements CoreCommand {
-    public final String selector;
-    public final String text;
+public class CheckTextCommandITest {
 
-    CheckTextCommand(String selector, String text) {
-        this.selector = selector;
-        this.text = text;
-    }
+    @Test public void testExecute() throws Exception {
+        String url =
+            "file:" + new File("src/test/resources/command-itest/CheckTextCommandITest.html")
+                .getAbsolutePath();
+        String selector = "#text";
+        String text = "CheckText";
 
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.CHECK_TEXT;
-    }
-
-    @Override public void execute() {
+        open(url);
+        //Both checkText and selenide version of assert should pass.
         $(selector).shouldHave(Condition.text(text));
+        CoreCommandFactory.createCheckText(selector, text).execute();
     }
 }
