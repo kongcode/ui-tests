@@ -43,4 +43,8 @@ public class CoreCommandFactory {
     public static Command createSelectOption(String selectSelector, String optionText) {
         return new SelectOptionCommand(selectSelector, optionText);
     }
+
+    public static Command createSelectRadio(String radioSelector, String value) {
+        return new SelectRadioCommand(radioSelector, value);
+    }
 }
