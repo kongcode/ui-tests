@@ -36,7 +36,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.kongcode.uitests</groupId>
     <artifactId>ui-tests</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <modules>
         <module>core</module>
     </modules>
