@@ -47,4 +47,9 @@ public class CoreCommandFactory {
     public static Command createSelectRadio(String radioSelector, String value) {
         return new SelectRadioCommand(radioSelector, value);
     }
+
+
+    public static Command createSelectCheckbox(String selector) {
+        return new SelectCheckboxCommand(selector);
+    }
 }
