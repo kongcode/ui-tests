@@ -17,6 +17,7 @@
 
 package io.kongcode.uitests.domain;
 
+import io.kongcode.uitests.api.domain.CompoundCommand;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
