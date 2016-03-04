@@ -63,11 +63,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>io.kongcode.uitests</groupId>
+                <artifactId>api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.codeborne</groupId>
                 <artifactId>selenide</artifactId>
                 <version>${selenide.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>angularjs</artifactId>
