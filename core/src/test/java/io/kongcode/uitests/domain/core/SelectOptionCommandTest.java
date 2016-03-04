@@ -17,7 +17,7 @@
 
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -34,6 +34,6 @@ public class SelectOptionCommandTest {
             (SelectOptionCommand) CoreCommandFactory.createSelectOption(selectSelector, optionValue);
         assertEquals(selectSelector, selectOptionCommand.selectSelector);
         assertEquals(optionValue, selectOptionCommand.optionValue);
-        assertEquals(CoreCommandType.SELECT_OPTION, selectOptionCommand.getType());
+        assertEquals(BasicCommandType.SELECT_OPTION, selectOptionCommand.getType());
     }
 }

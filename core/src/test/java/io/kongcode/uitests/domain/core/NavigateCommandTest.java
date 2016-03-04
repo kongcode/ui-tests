@@ -16,7 +16,7 @@
  */
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -30,6 +30,6 @@ public class NavigateCommandTest {
         String url = "/url";
         NavigateCommand command = (NavigateCommand) CoreCommandFactory.createNavigate(url);
         assertEquals(url, command.url);
-        assertEquals(CoreCommandType.NAVIGATE, command.getType());
+        assertEquals(BasicCommandType.NAVIGATE, command.getType());
     }
 }

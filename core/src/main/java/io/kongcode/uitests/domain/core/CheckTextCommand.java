@@ -18,15 +18,15 @@
 package io.kongcode.uitests.domain.core;
 
 import com.codeborne.selenide.Condition;
-import io.kongcode.uitests.api.CoreCommand;
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class CheckTextCommand implements CoreCommand {
+class CheckTextCommand implements BasicCommand {
     public final String selector;
     public final String text;
 
@@ -35,8 +35,8 @@ class CheckTextCommand implements CoreCommand {
         this.text = text;
     }
 
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.CHECK_TEXT;
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.CHECK_TEXT;
     }
 
     @Override public void execute() {

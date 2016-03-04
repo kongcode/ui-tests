@@ -15,13 +15,11 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api;
+package io.kongcode.uitests.api.basic;
 
 /**
- * Created by jperondini on 03/03/2016.
+ * Created by jperondini on 02/03/2016.
  */
-public interface FillTextCommand extends CoreCommand {
-    @Override default CoreCommandType getType() {
-        return CoreCommandType.FILL_FIELD;
-    }
+public enum BasicCommandType {
+    NAVIGATE, CLICK, CHECK_TEXT, FILL_FIELD, SELECT_OPTION, SELECT_RADIO, SELECT_CHECKBOX;
 }

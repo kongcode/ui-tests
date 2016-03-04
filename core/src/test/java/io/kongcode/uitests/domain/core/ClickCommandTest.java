@@ -17,7 +17,7 @@
 
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +31,6 @@ public class ClickCommandTest {
         String selector = "selector";
         ClickCommand command = (ClickCommand) CoreCommandFactory.createClick(selector);
         assertEquals(selector, command.selector);
-        assertEquals(CoreCommandType.CLICK, command.getType());
+        assertEquals(BasicCommandType.CLICK, command.getType());
     }
 }

@@ -17,15 +17,15 @@
 
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommand;
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class FillTextCommand implements CoreCommand {
+class FillTextCommand implements BasicCommand {
     public final String selector;
     public final String text;
 
@@ -34,8 +34,8 @@ class FillTextCommand implements CoreCommand {
         this.text = text;
     }
 
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.FILL_FIELD;
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.FILL_FIELD;
     }
 
     @Override public void execute() {

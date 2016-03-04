@@ -17,7 +17,7 @@
 
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -34,6 +34,6 @@ public class FillFieldCommandTest {
             (FillTextCommand) CoreCommandFactory.createFillText(selector, text);
         assertEquals(selector, command.selector);
         assertEquals(text, command.text);
-        assertEquals(CoreCommandType.FILL_FIELD, command.getType());
+        assertEquals(BasicCommandType.FILL_FIELD, command.getType());
     }
 }

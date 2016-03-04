@@ -1,6 +1,6 @@
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,6 +15,6 @@ public class SelectChecboxCommandTest {
         SelectCheckboxCommand command =
             (SelectCheckboxCommand) CoreCommandFactory.createSelectCheckbox(selector);
         assertEquals(selector, command.selector);
-        assertEquals (CoreCommandType.SELECT_CHECKBOX, command.getType());
+        assertEquals (BasicCommandType.SELECT_CHECKBOX, command.getType());
     }
 }

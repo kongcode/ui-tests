@@ -17,15 +17,15 @@
 
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommand;
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class ClickCommand implements CoreCommand {
+class ClickCommand implements BasicCommand {
 
     final String selector;
 
@@ -33,8 +33,8 @@ class ClickCommand implements CoreCommand {
         this.selector = selector;
     }
 
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.CLICK;
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.CLICK;
     }
 
     @Override public void execute() {

@@ -15,11 +15,14 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api;
+package io.kongcode.uitests.api.basic;
+
+import io.kongcode.uitests.api.Command;
 
 /**
- * Created by jperondini on 02/03/2016.
+ * Created by joao on 03/03/16.
  */
-public enum CoreCommandType {
-    NAVIGATE, CLICK, CHECK_TEXT, FILL_FIELD, SELECT_OPTION, SELECT_RADIO, SELECT_CHECKBOX;
+public interface BasicCommand extends Command {
+
+    BasicCommandType getType();
 }

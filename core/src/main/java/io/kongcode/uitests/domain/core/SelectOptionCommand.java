@@ -17,15 +17,15 @@
 
 package io.kongcode.uitests.domain.core;
 
-import io.kongcode.uitests.api.CoreCommand;
-import io.kongcode.uitests.api.CoreCommandType;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class SelectOptionCommand implements CoreCommand {
+class SelectOptionCommand implements BasicCommand {
     public final String selectSelector;
     public final String optionValue;
 
@@ -34,8 +34,8 @@ class SelectOptionCommand implements CoreCommand {
         this.optionValue = optionValue;
     }
 
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.SELECT_OPTION;
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.SELECT_OPTION;
     }
 
     @Override public void execute() {

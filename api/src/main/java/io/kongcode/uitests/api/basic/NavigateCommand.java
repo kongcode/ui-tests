@@ -15,13 +15,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api;
+package io.kongcode.uitests.api.basic;
 
 /**
  * Created by jperondini on 02/03/2016.
  */
-public interface NavigateCommand extends CoreCommand {
-    @Override default CoreCommandType getType() {
-        return CoreCommandType.NAVIGATE;
+public interface NavigateCommand extends BasicCommand {
+    @Override default BasicCommandType getType() {
+        return BasicCommandType.NAVIGATE;
     }
 }

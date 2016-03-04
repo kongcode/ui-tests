@@ -15,14 +15,14 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api;
+package io.kongcode.uitests.api.basic;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public interface SelectOptionCommand extends CoreCommand {
+public interface SelectOptionCommand extends BasicCommand {
 
-    @Override default CoreCommandType getType() {
-        return CoreCommandType.SELECT_OPTION;
+    @Override default BasicCommandType getType() {
+        return BasicCommandType.SELECT_OPTION;
     }
 }

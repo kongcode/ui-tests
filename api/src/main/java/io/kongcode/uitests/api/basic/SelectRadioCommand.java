@@ -15,12 +15,13 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api;
+package io.kongcode.uitests.api.basic;
 
 /**
- * Created by joao on 03/03/16.
+ * Created by jperondini on 03/03/2016.
  */
-public interface CoreCommand extends Command {
-
-    CoreCommandType getType();
+public interface SelectRadioCommand extends BasicCommand {
+    @Override default BasicCommandType getType() {
+        return BasicCommandType.SELECT_RADIO;
+    }
 }
