@@ -30,6 +30,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
         </dependency>
@@ -48,20 +52,7 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*ITest.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*ITest.java</include>
-                    </includes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
