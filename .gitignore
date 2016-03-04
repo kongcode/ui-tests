@@ -139,3 +139,5 @@ nbdist/
 nbactions.xml
 .nb-gradle/
 
+#Exception for maven wrapper
+!.mvn/wrapper/maven-wrapper.jar
