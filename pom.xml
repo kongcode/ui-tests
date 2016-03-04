@@ -38,6 +38,7 @@
     <artifactId>ui-tests</artifactId>
     <version>0.2.0</version>
     <modules>
+        <module>api</module>
         <module>core</module>
         <module>web</module>
     </modules>
