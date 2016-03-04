@@ -1,0 +1,14 @@
+<h1>Test Cases</h1>
+<p ng-show="data.length == 0">No data found.</p>
+<table class="table table-striped" ng-show="data.length > 0">
+  <thead>
+    <tr>
+      <th ng-repeat="header in headers" ng-bind="header"><th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="testCase in data">
+      <td ng-bind="testCase.name"></td>
+    </tr>
+  </tbody>
+</table>
