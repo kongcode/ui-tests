@@ -22,7 +22,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectOptionCommand implements CoreCommand {
+class SelectOptionCommand implements CoreCommand {
     public final String selectSelector;
     public final String optionValue;
 

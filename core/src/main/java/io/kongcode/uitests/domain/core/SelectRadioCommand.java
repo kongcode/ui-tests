@@ -23,7 +23,7 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectRadioCommand implements CoreCommand {
+class SelectRadioCommand implements CoreCommand {
     public final String radioSelector;
     public final String radioValue;
 
@@ -37,9 +37,6 @@ public class SelectRadioCommand implements CoreCommand {
     }
 
     @Override public void execute() {
-        //SelenideElement element = $$(radioSelector).filterBy(value(radioValue)).first();
-        //SelenideElement attr = element.$("checked");
-        //attr.setValue("true");
         $$(radioSelector).filterBy(value(radioValue)).first().selectRadio(radioValue);
     }
 }
