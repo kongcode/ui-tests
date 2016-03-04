@@ -28,11 +28,11 @@ public class SelectRadioCommandTest {
 
     @Test public void testFactory() throws Exception {
         String radioSelector = "radioSelector";
-        String value = "value";
+        String value = "radioValue";
         SelectRadioCommand command =
             (SelectRadioCommand) CoreCommandFactory.createSelectRadio(radioSelector, value);
         assertEquals(radioSelector, command.radioSelector);
-        assertEquals(value, command.value);
+        assertEquals(value, command.radioValue);
         assertEquals(CoreCommandType.SELECT_RADIO, command.getType());
     }
 }
