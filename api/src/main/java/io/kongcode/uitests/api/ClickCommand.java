@@ -18,9 +18,10 @@
 package io.kongcode.uitests.api;
 
 /**
- * Created by joao on 03/03/16.
+ * Created by jperondini on 03/03/2016.
  */
-public interface CoreCommand extends Command {
-
-    CoreCommandType getType();
+public interface ClickCommand extends CoreCommand {
+    @Override default CoreCommandType getType() {
+        return CoreCommandType.CLICK;
+    }
 }

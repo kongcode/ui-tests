@@ -18,9 +18,10 @@
 package io.kongcode.uitests.api;
 
 /**
- * Created by joao on 03/03/16.
+ * Created by joao on 04/03/16.
  */
-public interface CoreCommand extends Command {
-
-    CoreCommandType getType();
+public interface SelectCheckboxCommand extends CoreCommand {
+    @Override default CoreCommandType getType() {
+        return CoreCommandType.SELECT_CHECKBOX;
+    }
 }
