@@ -18,6 +18,8 @@
 package io.kongcode.uitests.domain.core;
 
 import com.codeborne.selenide.Condition;
+import io.kongcode.uitests.api.CoreCommand;
+import io.kongcode.uitests.api.CoreCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
 

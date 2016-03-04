@@ -15,29 +15,11 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
-
-import io.kongcode.uitests.api.CoreCommand;
-import io.kongcode.uitests.api.CoreCommandType;
-
-import static com.codeborne.selenide.Selenide.$;
+package io.kongcode.uitests.api;
 
 /**
- * Created by jperondini on 03/03/2016.
+ * Created by jperondini on 02/03/2016.
  */
-class ClickCommand implements CoreCommand {
-
-    final String selector;
-
-    ClickCommand(String selector) {
-        this.selector = selector;
-    }
-
-    @Override public CoreCommandType getType() {
-        return CoreCommandType.CLICK;
-    }
-
-    @Override public void execute() {
-        $(selector).click();
-    }
+public enum CoreCommandType {
+    NAVIGATE, CLICK, CHECK_TEXT, FILL_FIELD, SELECT_OPTION, SELECT_RADIO, SELECT_CHECKBOX;
 }

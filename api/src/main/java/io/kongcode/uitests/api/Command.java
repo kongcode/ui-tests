@@ -15,14 +15,15 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
-
-import io.kongcode.uitests.api.Command;
+package io.kongcode.uitests.api;
 
 /**
- * Created by joao on 03/03/16.
+ * Test Case Command Interface
  */
-interface CoreCommand extends Command {
+@FunctionalInterface public interface Command {
 
-    CoreCommandType getType();
+    /**
+     * Executes the command.
+     */
+    void execute();
 }

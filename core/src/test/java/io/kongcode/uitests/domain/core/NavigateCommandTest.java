@@ -16,6 +16,7 @@
  */
 package io.kongcode.uitests.domain.core;
 
+import io.kongcode.uitests.api.CoreCommandType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

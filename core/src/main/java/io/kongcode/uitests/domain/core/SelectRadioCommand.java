@@ -17,6 +17,9 @@
 
 package io.kongcode.uitests.domain.core;
 
+import io.kongcode.uitests.api.CoreCommand;
+import io.kongcode.uitests.api.CoreCommandType;
+
 import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$$;
 
