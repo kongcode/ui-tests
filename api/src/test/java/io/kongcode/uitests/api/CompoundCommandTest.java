@@ -14,8 +14,10 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package io.kongcode.uitests.api.domain;
 
+package io.kongcode.uitests.api;
+
+import io.kongcode.uitests.api.CompoundCommand;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -24,18 +26,18 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jperondini on 02/03/2016.
  */
-public class TestCaseTest {
+public class CompoundCommandTest {
 
-    @Test public void testRun() throws Exception {
-
+    @Test public void testExecute() throws Exception {
         final Holder holder = new Holder();
         Integer id = 1;
         String name = "Test";
-        TestCase testCase =
-            TestCase.builder().withId(id).withName(name).command(() -> holder.value = true).build();
-        testCase.run();
-        assertEquals(id, testCase.id);
-        assertEquals(name, testCase.name);
+        CompoundCommand compoundCommand =
+            CompoundCommand.builder().withId(id).withName(name).command(() -> holder.value = true)
+                .build();
+        compoundCommand.execute();
+        assertEquals(id, compoundCommand.id);
+        assertEquals(name, compoundCommand.name);
         assertTrue(holder.value);
     }
 

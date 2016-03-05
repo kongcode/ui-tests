@@ -15,9 +15,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api.domain;
-
-import io.kongcode.uitests.api.Command;
+package io.kongcode.uitests.api;
 
 import java.util.ArrayList;
 import java.util.List;
