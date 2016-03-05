@@ -32,7 +32,7 @@ public class CheckTextCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/CheckTextCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/CheckTextSeleniumCommandITest.html")
                 .getAbsolutePath();
         String selector = "#text";
         String text = "CheckText";

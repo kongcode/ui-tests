@@ -33,7 +33,7 @@ public class SelectCheckboxCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/SelectCheckboxCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/SelectCheckboxSeleniumCommandITest.html")
                 .getAbsolutePath();
         String selectorChecked = "#checkbox-checked";
         String selectorUnchecked = "#checkbox-unchecked";

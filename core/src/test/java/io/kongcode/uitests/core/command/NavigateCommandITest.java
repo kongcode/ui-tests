@@ -31,7 +31,7 @@ public class NavigateCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/NavigateCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/NavigateSeleniumCommandITest.html")
                 .getAbsolutePath();
         CoreCommandFactory.createNavigate(url).execute();
         $("#test").shouldHave(text("NavigateCommandITest"));

@@ -34,7 +34,7 @@ public class FillFieldCommandITest {
         String selector = "#input";
         String inputText = "text";
         String url =
-            "file:" + new File("src/test/resources/command-itest/FillFieldCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/FillFieldSeleniumCommandITest.html")
                 .getAbsolutePath();
         open(url);
         $(selector).shouldNotHave(value(inputText));

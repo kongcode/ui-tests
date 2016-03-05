@@ -32,7 +32,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class ClickCommandITest {
 
     @Test public void testExecute() throws Exception {
-        String url = "file:" + new File("src/test/resources/command-itest/ClickCommandITest.html")
+        String url = "file:" + new File("src/test/resources/command-itest/ClickCommandSeleniumITest.html")
             .getAbsolutePath();
         String result1 = "Button1";
         Command command = CoreCommandFactory.createClick("#button1");

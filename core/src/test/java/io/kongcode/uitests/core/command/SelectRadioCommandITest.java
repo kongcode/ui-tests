@@ -36,7 +36,7 @@ public class SelectRadioCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/SelectRadioCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/SelectRadioSeleniumCommandITest.html")
                 .getAbsolutePath();
         String selector = ".rdo";
 

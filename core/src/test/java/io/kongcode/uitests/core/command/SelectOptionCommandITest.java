@@ -33,7 +33,7 @@ public class SelectOptionCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/SelectOptionCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/SelectOptionSeleniumCommandITest.html")
                 .getAbsolutePath();
         String selector = "#select";
         open(url);
