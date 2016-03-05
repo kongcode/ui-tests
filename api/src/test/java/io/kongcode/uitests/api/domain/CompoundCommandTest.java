@@ -15,9 +15,8 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain;
+package io.kongcode.uitests.api.domain;
 
-import io.kongcode.uitests.api.domain.CompoundCommand;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
