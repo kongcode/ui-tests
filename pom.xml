@@ -38,6 +38,7 @@
     <artifactId>ui-tests</artifactId>
     <version>0.2.0</version>
     <modules>
+        <module>api</module>
         <module>core</module>
         <module>web</module>
     </modules>
@@ -62,11 +63,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>io.kongcode.uitests</groupId>
+                <artifactId>api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.codeborne</groupId>
                 <artifactId>selenide</artifactId>
                 <version>${selenide.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>angularjs</artifactId>
