@@ -22,34 +22,34 @@ import io.kongcode.uitests.api.Command;
 /**
  * Created by jperondini on 02/03/2016.
  */
-public class CoreCommandFactory {
+public class BasicSeleniumCommandFactory {
 
     public static Command createNavigate(String url) {
-        return new NavigateCommand(url);
+        return new NavigateSeleniumCommand(url);
     }
 
     public static Command createClick(String selector) {
-        return new ClickCommand(selector);
+        return new ClickSeleniumCommand(selector);
     }
 
     public static Command createCheckText(String selector, String text) {
-        return new CheckTextCommand(selector, text);
+        return new CheckTextSeleniumCommand(selector, text);
     }
 
     public static Command createFillText(String selector, String text) {
-        return new FillTextCommand(selector, text);
+        return new FillTextSeleniumCommand(selector, text);
     }
 
     public static Command createSelectOption(String selectSelector, String optionText) {
-        return new SelectOptionCommand(selectSelector, optionText);
+        return new SelectOptionSeleniumCommand(selectSelector, optionText);
     }
 
     public static Command createSelectRadio(String radioSelector, String value) {
-        return new SelectRadioCommand(radioSelector, value);
+        return new SelectRadioSeleniumCommand(radioSelector, value);
     }
 
 
     public static Command createSelectCheckbox(String selector) {
-        return new SelectCheckboxCommand(selector);
+        return new SelectCheckboxSeleniumCommand(selector);
     }
 }

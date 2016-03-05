@@ -17,40 +17,29 @@
 
 package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.Condition;
 import org.junit.Test;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.selected;
-import static com.codeborne.selenide.Condition.value;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectRadioCommandITest {
+public class CheckTextSeleniumCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/SelectRadioSeleniumCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/CheckTextSeleniumCommandITest.html")
                 .getAbsolutePath();
-        String selector = ".rdo";
+        String selector = "#text";
+        String text = "CheckText";
 
         open(url);
-        $$(selector).forEach(selenideElement -> selenideElement.shouldNotBe(selected));
-
-        for (int i = 1; i < 5; i++) {
-            String radioValue = String.valueOf(i);
-            CoreCommandFactory.createSelectRadio(selector, radioValue).execute();
-            SelenideElement radioOpt = $$(selector).filterBy(value(radioValue)).first();
-            assertTrue(radioOpt.exists());
-            //radioOpt.shouldHave(attribute("checked", "true"));
-            radioOpt.shouldBe(selected);
-            assertEquals(3, $$(selector).exclude(selected).size());
-        }
+        //Both checkText and selenide version of assert should pass.
+        $(selector).shouldHave(Condition.text(text));
+        BasicSeleniumCommandFactory.createCheckText(selector, text).execute();
     }
 }

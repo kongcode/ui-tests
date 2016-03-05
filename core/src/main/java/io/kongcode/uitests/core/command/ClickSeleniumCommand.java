@@ -17,29 +17,27 @@
 
 package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.Condition;
-import org.junit.Test;
-
-import java.io.File;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class CheckTextCommandITest {
+class ClickSeleniumCommand implements BasicCommand {
 
-    @Test public void testExecute() throws Exception {
-        String url =
-            "file:" + new File("src/test/resources/command-itest/CheckTextSeleniumCommandITest.html")
-                .getAbsolutePath();
-        String selector = "#text";
-        String text = "CheckText";
+    final String selector;
 
-        open(url);
-        //Both checkText and selenide version of assert should pass.
-        $(selector).shouldHave(Condition.text(text));
-        CoreCommandFactory.createCheckText(selector, text).execute();
+    ClickSeleniumCommand(String selector) {
+        this.selector = selector;
+    }
+
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.CLICK;
+    }
+
+    @Override public void execute() {
+        $(selector).click();
     }
 }

@@ -30,8 +30,8 @@ public class FillFieldCommandTest {
     @Test public void testFactory() throws Exception {
         String text = "text";
         String selector = "selector";
-        FillTextCommand command =
-            (FillTextCommand) CoreCommandFactory.createFillText(selector, text);
+        FillTextSeleniumCommand command =
+            (FillTextSeleniumCommand) BasicSeleniumCommandFactory.createFillText(selector, text);
         assertEquals(selector, command.selector);
         assertEquals(text, command.text);
         assertEquals(BasicCommandType.FILL_FIELD, command.getType());

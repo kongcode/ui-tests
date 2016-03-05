@@ -25,13 +25,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectRadioCommandTest {
+public class SelectRadioSeleniumCommandTest {
 
     @Test public void testFactory() throws Exception {
         String radioSelector = "radioSelector";
         String value = "radioValue";
-        SelectRadioCommand command =
-            (SelectRadioCommand) CoreCommandFactory.createSelectRadio(radioSelector, value);
+        SelectRadioSeleniumCommand command =
+            (SelectRadioSeleniumCommand) BasicSeleniumCommandFactory.createSelectRadio(radioSelector, value);
         assertEquals(radioSelector, command.radioSelector);
         assertEquals(value, command.radioValue);
         assertEquals(BasicCommandType.SELECT_RADIO, command.getType());

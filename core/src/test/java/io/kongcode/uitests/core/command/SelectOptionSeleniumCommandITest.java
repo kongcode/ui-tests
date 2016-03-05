@@ -17,28 +17,31 @@
 
 package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.Condition;
-import io.kongcode.uitests.api.Command;
 import org.junit.Test;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class ClickCommandITest {
+public class SelectOptionSeleniumCommandITest {
 
     @Test public void testExecute() throws Exception {
-        String url = "file:" + new File("src/test/resources/command-itest/ClickCommandSeleniumITest.html")
-            .getAbsolutePath();
-        String result1 = "Button1";
-        Command command = CoreCommandFactory.createClick("#button1");
+        String url =
+            "file:" + new File("src/test/resources/command-itest/SelectOptionSeleniumCommandITest.html")
+                .getAbsolutePath();
+        String selector = "#select";
         open(url);
-        $("#result1").shouldNotHave(Condition.text(result1));
-        command.execute();
-        $("#result1").shouldHave(Condition.text(result1));
+        $(selector).shouldHave(value("1")).shouldHave(text("Text1"));
+        for (int i = 3; i > 0; i--) {
+            String optionValue = String.valueOf(i);
+            BasicSeleniumCommandFactory.createSelectOption(selector, optionValue).execute();
+            $(selector).shouldHave(value(optionValue)).shouldHave(text("Text" + optionValue));
+        }
     }
 }

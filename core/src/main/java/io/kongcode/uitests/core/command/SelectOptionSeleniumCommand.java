@@ -17,23 +17,28 @@
 
 package io.kongcode.uitests.core.command;
 
+import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
-import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class CheckTextCommandTest {
+class SelectOptionSeleniumCommand implements BasicCommand {
+    public final String selectSelector;
+    public final String optionValue;
 
-    @Test public void testFactory() throws Exception {
-        String selector = "selector";
-        String text = "text";
-        CheckTextCommand command =
-            (CheckTextCommand) CoreCommandFactory.createCheckText(selector, text);
-        assertEquals(selector, command.selector);
-        assertEquals(text, command.text);
-        assertEquals(BasicCommandType.CHECK_TEXT, command.getType());
+    public SelectOptionSeleniumCommand(String selectSelector, String optionValue) {
+        this.selectSelector = selectSelector;
+        this.optionValue = optionValue;
+    }
+
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.SELECT_OPTION;
+    }
+
+    @Override public void execute() {
+        $(selectSelector).selectOptionByValue(optionValue);
     }
 }

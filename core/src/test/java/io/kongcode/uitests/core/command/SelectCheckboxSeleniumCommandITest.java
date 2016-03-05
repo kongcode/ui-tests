@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectCheckboxCommandITest {
+public class SelectCheckboxSeleniumCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
@@ -41,8 +41,8 @@ public class SelectCheckboxCommandITest {
         open(url);
         assertCheckboxStatus(selectorChecked, true);
         assertCheckboxStatus(selectorUnchecked, false);
-        CoreCommandFactory.createSelectCheckbox(selectorChecked).execute();
-        CoreCommandFactory.createSelectCheckbox(selectorUnchecked).execute();
+        BasicSeleniumCommandFactory.createSelectCheckbox(selectorChecked).execute();
+        BasicSeleniumCommandFactory.createSelectCheckbox(selectorUnchecked).execute();
         assertCheckboxStatus(selectorChecked, false);
         assertCheckboxStatus(selectorUnchecked, true);
     }

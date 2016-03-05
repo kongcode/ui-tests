@@ -25,13 +25,14 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectOptionCommandTest {
+public class SelectOptionSeleniumCommandTest {
 
     @Test public void testFactory() throws Exception {
         String selectSelector = "selectSelector";
         String optionValue = "optionValue";
-        SelectOptionCommand selectOptionCommand =
-            (SelectOptionCommand) CoreCommandFactory.createSelectOption(selectSelector, optionValue);
+        SelectOptionSeleniumCommand selectOptionCommand =
+            (SelectOptionSeleniumCommand) BasicSeleniumCommandFactory
+                .createSelectOption(selectSelector, optionValue);
         assertEquals(selectSelector, selectOptionCommand.selectSelector);
         assertEquals(optionValue, selectOptionCommand.optionValue);
         assertEquals(BasicCommandType.SELECT_OPTION, selectOptionCommand.getType());

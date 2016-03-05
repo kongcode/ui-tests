@@ -25,11 +25,11 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Created by jperondini on 02/03/2016.
  */
-class NavigateCommand implements BasicCommand {
+class NavigateSeleniumCommand implements BasicCommand {
 
     public final String url;
 
-    NavigateCommand(String url) {
+    NavigateSeleniumCommand(String url) {
         this.url = url;
     }
 

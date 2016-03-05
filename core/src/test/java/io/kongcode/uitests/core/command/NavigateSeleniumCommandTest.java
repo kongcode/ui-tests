@@ -14,31 +14,23 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.kongcode.uitests.core.command;
 
-import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
+import org.junit.Test;
 
-import static com.codeborne.selenide.Selenide.$;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by jperondini on 03/03/2016.
+ * Created by joao on 03/03/16.
  */
-class SelectOptionCommand implements BasicCommand {
-    public final String selectSelector;
-    public final String optionValue;
+public class NavigateSeleniumCommandTest {
 
-    public SelectOptionCommand(String selectSelector, String optionValue) {
-        this.selectSelector = selectSelector;
-        this.optionValue = optionValue;
-    }
-
-    @Override public BasicCommandType getType() {
-        return BasicCommandType.SELECT_OPTION;
-    }
-
-    @Override public void execute() {
-        $(selectSelector).selectOptionByValue(optionValue);
+    @Test public void testFactory() throws Exception {
+        String url = "/url";
+        NavigateSeleniumCommand command =
+            (NavigateSeleniumCommand) BasicSeleniumCommandFactory.createNavigate(url);
+        assertEquals(url, command.url);
+        assertEquals(BasicCommandType.NAVIGATE, command.getType());
     }
 }

@@ -17,28 +17,28 @@
 
 package io.kongcode.uitests.core.command;
 
-import io.kongcode.uitests.api.basic.BasicCommand;
-import io.kongcode.uitests.api.basic.BasicCommandType;
+import com.codeborne.selenide.Condition;
+import io.kongcode.uitests.api.Command;
+import org.junit.Test;
+
+import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class FillTextCommand implements BasicCommand {
-    public final String selector;
-    public final String text;
+public class ClickSeleniumCommandITest {
 
-    public FillTextCommand(String selector, String text) {
-        this.selector = selector;
-        this.text = text;
-    }
-
-    @Override public BasicCommandType getType() {
-        return BasicCommandType.FILL_FIELD;
-    }
-
-    @Override public void execute() {
-        $(selector).setValue(text);
+    @Test public void testExecute() throws Exception {
+        String url = "file:" + new File("src/test/resources/command-itest/ClickCommandSeleniumITest.html")
+            .getAbsolutePath();
+        String result1 = "Button1";
+        Command command = BasicSeleniumCommandFactory.createClick("#button1");
+        open(url);
+        $("#result1").shouldNotHave(Condition.text(result1));
+        command.execute();
+        $("#result1").shouldHave(Condition.text(result1));
     }
 }

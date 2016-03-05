@@ -25,11 +25,12 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class ClickCommandTest {
+public class ClickSeleniumCommandTest {
 
     @Test public void testFactory() throws Exception {
         String selector = "selector";
-        ClickCommand command = (ClickCommand) CoreCommandFactory.createClick(selector);
+        ClickSeleniumCommand command = (ClickSeleniumCommand) BasicSeleniumCommandFactory
+            .createClick(selector);
         assertEquals(selector, command.selector);
         assertEquals(BasicCommandType.CLICK, command.getType());
     }

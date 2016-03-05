@@ -17,31 +17,40 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Test;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.selected;
 import static com.codeborne.selenide.Condition.value;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectOptionCommandITest {
+public class SelectRadioSeleniumCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/SelectOptionSeleniumCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/SelectRadioSeleniumCommandITest.html")
                 .getAbsolutePath();
-        String selector = "#select";
+        String selector = ".rdo";
+
         open(url);
-        $(selector).shouldHave(value("1")).shouldHave(text("Text1"));
-        for (int i = 3; i > 0; i--) {
-            String optionValue = String.valueOf(i);
-            CoreCommandFactory.createSelectOption(selector, optionValue).execute();
-            $(selector).shouldHave(value(optionValue)).shouldHave(text("Text" + optionValue));
+        $$(selector).forEach(selenideElement -> selenideElement.shouldNotBe(selected));
+
+        for (int i = 1; i < 5; i++) {
+            String radioValue = String.valueOf(i);
+            BasicSeleniumCommandFactory.createSelectRadio(selector, radioValue).execute();
+            SelenideElement radioOpt = $$(selector).filterBy(value(radioValue)).first();
+            assertTrue(radioOpt.exists());
+            //radioOpt.shouldHave(attribute("checked", "true"));
+            radioOpt.shouldBe(selected);
+            assertEquals(3, $$(selector).exclude(selected).size());
         }
     }
 }

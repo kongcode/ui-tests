@@ -38,7 +38,7 @@ public class FillFieldCommandITest {
                 .getAbsolutePath();
         open(url);
         $(selector).shouldNotHave(value(inputText));
-        CoreCommandFactory.createFillText(selector, inputText).execute();
+        BasicSeleniumCommandFactory.createFillText(selector, inputText).execute();
         $(selector).shouldHave(value(inputText));
     }
 }

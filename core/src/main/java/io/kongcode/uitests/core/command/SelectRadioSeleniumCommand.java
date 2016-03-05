@@ -20,24 +20,26 @@ package io.kongcode.uitests.core.command;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.value;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class ClickCommand implements BasicCommand {
+class SelectRadioSeleniumCommand implements BasicCommand {
+    public final String radioSelector;
+    public final String radioValue;
 
-    final String selector;
-
-    ClickCommand(String selector) {
-        this.selector = selector;
+    public SelectRadioSeleniumCommand(String radioSelector, String radioValue) {
+        this.radioSelector = radioSelector;
+        this.radioValue = radioValue;
     }
 
     @Override public BasicCommandType getType() {
-        return BasicCommandType.CLICK;
+        return BasicCommandType.SELECT_RADIO;
     }
 
     @Override public void execute() {
-        $(selector).click();
+        $$(radioSelector).filterBy(value(radioValue)).first().selectRadio(radioValue);
     }
 }

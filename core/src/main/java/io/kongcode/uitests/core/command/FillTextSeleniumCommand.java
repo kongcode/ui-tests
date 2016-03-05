@@ -14,22 +14,31 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package io.kongcode.uitests.core.command;
 
+import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
- * Created by joao on 03/03/16.
+ * Created by jperondini on 03/03/2016.
  */
-public class NavigateCommandTest {
+class FillTextSeleniumCommand implements BasicCommand {
+    public final String selector;
+    public final String text;
 
-    @Test public void testFactory() throws Exception {
-        String url = "/url";
-        NavigateCommand command = (NavigateCommand) CoreCommandFactory.createNavigate(url);
-        assertEquals(url, command.url);
-        assertEquals(BasicCommandType.NAVIGATE, command.getType());
+    public FillTextSeleniumCommand(String selector, String text) {
+        this.selector = selector;
+        this.text = text;
+    }
+
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.FILL_FIELD;
+    }
+
+    @Override public void execute() {
+        $(selector).setValue(text);
     }
 }

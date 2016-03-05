@@ -17,29 +17,23 @@
 
 package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.Condition;
-import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
+import org.junit.Test;
 
-import static com.codeborne.selenide.Selenide.$;
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class CheckTextCommand implements BasicCommand {
-    public final String selector;
-    public final String text;
+public class CheckTextSeleniumCommandTest {
 
-    CheckTextCommand(String selector, String text) {
-        this.selector = selector;
-        this.text = text;
-    }
-
-    @Override public BasicCommandType getType() {
-        return BasicCommandType.CHECK_TEXT;
-    }
-
-    @Override public void execute() {
-        $(selector).shouldHave(Condition.text(text));
+    @Test public void testFactory() throws Exception {
+        String selector = "selector";
+        String text = "text";
+        CheckTextSeleniumCommand command =
+            (CheckTextSeleniumCommand) BasicSeleniumCommandFactory.createCheckText(selector, text);
+        assertEquals(selector, command.selector);
+        assertEquals(text, command.text);
+        assertEquals(BasicCommandType.CHECK_TEXT, command.getType());
     }
 }

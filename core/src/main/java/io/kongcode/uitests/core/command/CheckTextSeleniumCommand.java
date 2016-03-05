@@ -17,29 +17,29 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.codeborne.selenide.Condition;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 
-import static com.codeborne.selenide.Condition.value;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class SelectRadioCommand implements BasicCommand {
-    public final String radioSelector;
-    public final String radioValue;
+class CheckTextSeleniumCommand implements BasicCommand {
+    public final String selector;
+    public final String text;
 
-    public SelectRadioCommand(String radioSelector, String radioValue) {
-        this.radioSelector = radioSelector;
-        this.radioValue = radioValue;
+    CheckTextSeleniumCommand(String selector, String text) {
+        this.selector = selector;
+        this.text = text;
     }
 
     @Override public BasicCommandType getType() {
-        return BasicCommandType.SELECT_RADIO;
+        return BasicCommandType.CHECK_TEXT;
     }
 
     @Override public void execute() {
-        $$(radioSelector).filterBy(value(radioValue)).first().selectRadio(radioValue);
+        $(selector).shouldHave(Condition.text(text));
     }
 }
