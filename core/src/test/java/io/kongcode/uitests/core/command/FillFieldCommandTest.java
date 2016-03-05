@@ -15,30 +15,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.Condition;
-import io.kongcode.uitests.api.Command;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
-import java.io.File;
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class ClickCommandITest {
+public class FillFieldCommandTest {
 
-    @Test public void testExecute() throws Exception {
-        String url = "file:" + new File("src/test/resources/command-itest/ClickCommandITest.html")
-            .getAbsolutePath();
-        String result1 = "Button1";
-        Command command = CoreCommandFactory.createClick("#button1");
-        open(url);
-        $("#result1").shouldNotHave(Condition.text(result1));
-        command.execute();
-        $("#result1").shouldHave(Condition.text(result1));
+    @Test public void testFactory() throws Exception {
+        String text = "text";
+        String selector = "selector";
+        FillTextCommand command =
+            (FillTextCommand) CoreCommandFactory.createFillText(selector, text);
+        assertEquals(selector, command.selector);
+        assertEquals(text, command.text);
+        assertEquals(BasicCommandType.FILL_FIELD, command.getType());
     }
 }

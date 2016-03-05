@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
 import io.kongcode.uitests.api.Command;
 

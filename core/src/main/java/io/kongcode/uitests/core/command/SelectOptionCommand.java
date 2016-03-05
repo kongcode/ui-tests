@@ -15,31 +15,30 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.Condition;
-import org.junit.Test;
-
-import java.io.File;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class CheckTextCommandITest {
+class SelectOptionCommand implements BasicCommand {
+    public final String selectSelector;
+    public final String optionValue;
 
-    @Test public void testExecute() throws Exception {
-        String url =
-            "file:" + new File("src/test/resources/command-itest/CheckTextCommandITest.html")
-                .getAbsolutePath();
-        String selector = "#text";
-        String text = "CheckText";
+    public SelectOptionCommand(String selectSelector, String optionValue) {
+        this.selectSelector = selectSelector;
+        this.optionValue = optionValue;
+    }
 
-        open(url);
-        //Both checkText and selenide version of assert should pass.
-        $(selector).shouldHave(Condition.text(text));
-        CoreCommandFactory.createCheckText(selector, text).execute();
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.SELECT_OPTION;
+    }
+
+    @Override public void execute() {
+        $(selectSelector).selectOptionByValue(optionValue);
     }
 }

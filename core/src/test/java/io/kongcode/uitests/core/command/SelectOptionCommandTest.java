@@ -15,25 +15,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class FillFieldCommandTest {
+public class SelectOptionCommandTest {
 
     @Test public void testFactory() throws Exception {
-        String text = "text";
-        String selector = "selector";
-        FillTextCommand command =
-            (FillTextCommand) CoreCommandFactory.createFillText(selector, text);
-        assertEquals(selector, command.selector);
-        assertEquals(text, command.text);
-        assertEquals(BasicCommandType.FILL_FIELD, command.getType());
+        String selectSelector = "selectSelector";
+        String optionValue = "optionValue";
+        SelectOptionCommand selectOptionCommand =
+            (SelectOptionCommand) CoreCommandFactory.createSelectOption(selectSelector, optionValue);
+        assertEquals(selectSelector, selectOptionCommand.selectSelector);
+        assertEquals(optionValue, selectOptionCommand.optionValue);
+        assertEquals(BasicCommandType.SELECT_OPTION, selectOptionCommand.getType());
     }
 }

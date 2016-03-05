@@ -15,25 +15,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
+import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
-import java.io.File;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
+import static junit.framework.TestCase.assertEquals;
 
 /**
- * Created by joao on 03/03/16.
+ * Created by jperondini on 03/03/2016.
  */
-public class NavigateCommandITest {
+public class CheckTextCommandTest {
 
-    @Test public void testExecute() throws Exception {
-        String url =
-            "file:" + new File("src/test/resources/command-itest/NavigateCommandITest.html")
-                .getAbsolutePath();
-        CoreCommandFactory.createNavigate(url).execute();
-        $("#test").shouldHave(text("NavigateCommandITest"));
+    @Test public void testFactory() throws Exception {
+        String selector = "selector";
+        String text = "text";
+        CheckTextCommand command =
+            (CheckTextCommand) CoreCommandFactory.createCheckText(selector, text);
+        assertEquals(selector, command.selector);
+        assertEquals(text, command.text);
+        assertEquals(BasicCommandType.CHECK_TEXT, command.getType());
     }
 }

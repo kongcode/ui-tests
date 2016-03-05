@@ -1,4 +1,4 @@
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;

@@ -15,31 +15,25 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
-import com.codeborne.selenide.Condition;
-import io.kongcode.uitests.api.basic.BasicCommand;
-import io.kongcode.uitests.api.basic.BasicCommandType;
+import org.junit.Test;
 
+import java.io.File;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 /**
- * Created by jperondini on 03/03/2016.
+ * Created by joao on 03/03/16.
  */
-class CheckTextCommand implements BasicCommand {
-    public final String selector;
-    public final String text;
+public class NavigateCommandITest {
 
-    CheckTextCommand(String selector, String text) {
-        this.selector = selector;
-        this.text = text;
-    }
-
-    @Override public BasicCommandType getType() {
-        return BasicCommandType.CHECK_TEXT;
-    }
-
-    @Override public void execute() {
-        $(selector).shouldHave(Condition.text(text));
+    @Test public void testExecute() throws Exception {
+        String url =
+            "file:" + new File("src/test/resources/command-itest/NavigateCommandITest.html")
+                .getAbsolutePath();
+        CoreCommandFactory.createNavigate(url).execute();
+        $("#test").shouldHave(text("NavigateCommandITest"));
     }
 }

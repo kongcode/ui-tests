@@ -15,30 +15,30 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
-import io.kongcode.uitests.api.basic.BasicCommand;
-import io.kongcode.uitests.api.basic.BasicCommandType;
+import org.junit.Test;
 
+import java.io.File;
+
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class FillTextCommand implements BasicCommand {
-    public final String selector;
-    public final String text;
+public class FillFieldCommandITest {
 
-    public FillTextCommand(String selector, String text) {
-        this.selector = selector;
-        this.text = text;
-    }
-
-    @Override public BasicCommandType getType() {
-        return BasicCommandType.FILL_FIELD;
-    }
-
-    @Override public void execute() {
-        $(selector).setValue(text);
+    @Test public void testExecute() throws Exception {
+        String selector = "#input";
+        String inputText = "text";
+        String url =
+            "file:" + new File("src/test/resources/command-itest/FillFieldCommandITest.html")
+                .getAbsolutePath();
+        open(url);
+        $(selector).shouldNotHave(value(inputText));
+        CoreCommandFactory.createFillText(selector, inputText).execute();
+        $(selector).shouldHave(value(inputText));
     }
 }

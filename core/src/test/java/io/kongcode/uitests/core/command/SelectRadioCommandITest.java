@@ -15,30 +15,42 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Test;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.selected;
 import static com.codeborne.selenide.Condition.value;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class FillFieldCommandITest {
+public class SelectRadioCommandITest {
 
     @Test public void testExecute() throws Exception {
-        String selector = "#input";
-        String inputText = "text";
         String url =
-            "file:" + new File("src/test/resources/command-itest/FillFieldCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/SelectRadioCommandITest.html")
                 .getAbsolutePath();
+        String selector = ".rdo";
+
         open(url);
-        $(selector).shouldNotHave(value(inputText));
-        CoreCommandFactory.createFillText(selector, inputText).execute();
-        $(selector).shouldHave(value(inputText));
+        $$(selector).forEach(selenideElement -> selenideElement.shouldNotBe(selected));
+
+        for (int i = 1; i < 5; i++) {
+            String radioValue = String.valueOf(i);
+            CoreCommandFactory.createSelectRadio(selector, radioValue).execute();
+            SelenideElement radioOpt = $$(selector).filterBy(value(radioValue)).first();
+            assertTrue(radioOpt.exists());
+            //radioOpt.shouldHave(attribute("checked", "true"));
+            radioOpt.shouldBe(selected);
+            assertEquals(3, $$(selector).exclude(selected).size());
+        }
     }
 }

@@ -15,25 +15,29 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
+import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectOptionCommandTest {
+class ClickCommand implements BasicCommand {
 
-    @Test public void testFactory() throws Exception {
-        String selectSelector = "selectSelector";
-        String optionValue = "optionValue";
-        SelectOptionCommand selectOptionCommand =
-            (SelectOptionCommand) CoreCommandFactory.createSelectOption(selectSelector, optionValue);
-        assertEquals(selectSelector, selectOptionCommand.selectSelector);
-        assertEquals(optionValue, selectOptionCommand.optionValue);
-        assertEquals(BasicCommandType.SELECT_OPTION, selectOptionCommand.getType());
+    final String selector;
+
+    ClickCommand(String selector) {
+        this.selector = selector;
+    }
+
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.CLICK;
+    }
+
+    @Override public void execute() {
+        $(selector).click();
     }
 }

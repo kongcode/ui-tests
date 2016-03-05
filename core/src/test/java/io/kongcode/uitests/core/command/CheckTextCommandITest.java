@@ -15,33 +15,31 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
+import com.codeborne.selenide.Condition;
 import org.junit.Test;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class SelectOptionCommandITest {
+public class CheckTextCommandITest {
 
     @Test public void testExecute() throws Exception {
         String url =
-            "file:" + new File("src/test/resources/command-itest/SelectOptionCommandITest.html")
+            "file:" + new File("src/test/resources/command-itest/CheckTextCommandITest.html")
                 .getAbsolutePath();
-        String selector = "#select";
+        String selector = "#text";
+        String text = "CheckText";
+
         open(url);
-        $(selector).shouldHave(value("1")).shouldHave(text("Text1"));
-        for (int i = 3; i > 0; i--) {
-            String optionValue = String.valueOf(i);
-            CoreCommandFactory.createSelectOption(selector, optionValue).execute();
-            $(selector).shouldHave(value(optionValue)).shouldHave(text("Text" + optionValue));
-        }
+        //Both checkText and selenide version of assert should pass.
+        $(selector).shouldHave(Condition.text(text));
+        CoreCommandFactory.createCheckText(selector, text).execute();
     }
 }

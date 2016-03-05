@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
@@ -25,12 +25,15 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class ClickCommandTest {
+public class SelectRadioCommandTest {
 
     @Test public void testFactory() throws Exception {
-        String selector = "selector";
-        ClickCommand command = (ClickCommand) CoreCommandFactory.createClick(selector);
-        assertEquals(selector, command.selector);
-        assertEquals(BasicCommandType.CLICK, command.getType());
+        String radioSelector = "radioSelector";
+        String value = "radioValue";
+        SelectRadioCommand command =
+            (SelectRadioCommand) CoreCommandFactory.createSelectRadio(radioSelector, value);
+        assertEquals(radioSelector, command.radioSelector);
+        assertEquals(value, command.radioValue);
+        assertEquals(BasicCommandType.SELECT_RADIO, command.getType());
     }
 }

@@ -15,25 +15,31 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
+import com.codeborne.selenide.Condition;
+import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
-import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-public class CheckTextCommandTest {
+class CheckTextCommand implements BasicCommand {
+    public final String selector;
+    public final String text;
 
-    @Test public void testFactory() throws Exception {
-        String selector = "selector";
-        String text = "text";
-        CheckTextCommand command =
-            (CheckTextCommand) CoreCommandFactory.createCheckText(selector, text);
-        assertEquals(selector, command.selector);
-        assertEquals(text, command.text);
-        assertEquals(BasicCommandType.CHECK_TEXT, command.getType());
+    CheckTextCommand(String selector, String text) {
+        this.selector = selector;
+        this.text = text;
+    }
+
+    @Override public BasicCommandType getType() {
+        return BasicCommandType.CHECK_TEXT;
+    }
+
+    @Override public void execute() {
+        $(selector).shouldHave(Condition.text(text));
     }
 }

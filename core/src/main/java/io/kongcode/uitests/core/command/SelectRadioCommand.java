@@ -15,30 +15,31 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.domain.core;
+package io.kongcode.uitests.core.command;
 
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.value;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class SelectOptionCommand implements BasicCommand {
-    public final String selectSelector;
-    public final String optionValue;
+class SelectRadioCommand implements BasicCommand {
+    public final String radioSelector;
+    public final String radioValue;
 
-    public SelectOptionCommand(String selectSelector, String optionValue) {
-        this.selectSelector = selectSelector;
-        this.optionValue = optionValue;
+    public SelectRadioCommand(String radioSelector, String radioValue) {
+        this.radioSelector = radioSelector;
+        this.radioValue = radioValue;
     }
 
     @Override public BasicCommandType getType() {
-        return BasicCommandType.SELECT_OPTION;
+        return BasicCommandType.SELECT_RADIO;
     }
 
     @Override public void execute() {
-        $(selectSelector).selectOptionByValue(optionValue);
+        $$(radioSelector).filterBy(value(radioValue)).first().selectRadio(radioValue);
     }
 }
