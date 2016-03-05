@@ -17,6 +17,8 @@
 
 package io.kongcode.uitests.api;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ import java.util.List;
  */
 public final class TestCase {
 
+    @Id
     public final Integer id;
     public final String name;
     private final List<Command> commands;
