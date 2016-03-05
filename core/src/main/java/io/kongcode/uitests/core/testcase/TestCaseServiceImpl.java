@@ -2,7 +2,10 @@ package io.kongcode.uitests.core.testcase;
 
 import io.kongcode.uitests.api.TestCase;
 import io.kongcode.uitests.api.TestCaseService;
+import io.kongcode.uitests.api.dto.TestCaseSearchResult;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Stream;
 
 /**
  * {@link io.kongcode.uitests.api.TestCaseService} Implementation
@@ -17,5 +20,9 @@ import org.springframework.stereotype.Service;
 
     @Override public TestCase create(TestCase.TestCaseBuilder builder) {
         return repository.save(builder.build());
+    }
+
+    @Override public Stream<TestCaseSearchResult> findAll() {
+        return repository.streamAll().map(TestCaseSearchResult::new);
     }
 }
