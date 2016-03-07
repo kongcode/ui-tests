@@ -17,15 +17,18 @@
 
 package io.kongcode.uitests.core.testcase;
 
+import io.kongcode.uitests.api.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by jperondini on 07/03/2016.
@@ -34,13 +37,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringApplicationConfiguration(TestCaseRepositoryITest.class)
 public class TestCaseRepositoryITest {
 
-    @Bean public TestCaseRepository testCaseRepository() {
-        return new TestCaseRepositoryJdbc();
+
+    @Bean public TestCaseRepository testCaseRepository(JdbcTemplate jdbcTemplate) {
+        return new TestCaseRepositoryJdbc(jdbcTemplate);
     }
 
     @Autowired private TestCaseRepository repository;
 
-    @Test public void contextLoads() throws Exception {
+    @Test public void testInsertAndStream() throws Exception {
+        String name = "Test";
+        String selector = "selector";
+        String text = "text";
 
+        TestCase.TestCaseBuilder builder = TestCase.builder().withName(name);
+        //builder.command(BasicSeleniumCommandFactory.createCheckText(selector, text));
+        Integer actualId = repository.insert(builder.build());
+
+        TestCase testCase = repository.streamAll().findFirst().get();
+        assertEquals(actualId, testCase.id);
+        assertEquals(name, testCase.name);
     }
 }

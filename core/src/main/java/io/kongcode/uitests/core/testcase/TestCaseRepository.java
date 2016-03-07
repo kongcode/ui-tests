@@ -10,5 +10,5 @@ import java.util.stream.Stream;
 interface TestCaseRepository {
     Stream<TestCase> streamAll();
 
-    TestCase save(TestCase testCase);
+    Integer insert(TestCase testCase);
 }

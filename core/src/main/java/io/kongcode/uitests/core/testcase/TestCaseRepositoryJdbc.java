@@ -18,19 +18,45 @@
 package io.kongcode.uitests.core.testcase;
 
 import io.kongcode.uitests.api.TestCase;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.stream.Stream;
 
 /**
  * Created by jperondini on 07/03/2016.
  */
 @Component class TestCaseRepositoryJdbc implements TestCaseRepository {
-    @Override public Stream<TestCase> streamAll() {
-        return null;
+
+    private final JdbcTemplate jdbcTemplate;
+
+    TestCaseRepositoryJdbc(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override public TestCase save(TestCase testCase) {
-        return null;
+    @Override public Stream<TestCase> streamAll() {
+        //TODO: Create the correct stream implementation or change the method name to List.
+        return jdbcTemplate.query("SELECT ID, NAME FROM TEST_CASE", (rs, rowNum) -> {
+            TestCase.TestCaseBuilder builder = TestCase.builder();
+            int i = 1;
+            builder.withId(rs.getInt(i++)).withName(rs.getString(i++));
+            return builder.build();
+        }).stream();
+    }
+
+    @Override public Integer insert(TestCase testCase) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(con -> {
+            PreparedStatement preparedStatement =
+                con.prepareStatement("INSERT INTO TEST_CASE VALUES (NULL, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, testCase.name);
+            return preparedStatement;
+        }, keyHolder);
+        return keyHolder.getKey().intValue();
     }
 }

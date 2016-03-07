@@ -19,7 +19,8 @@ import java.util.stream.Stream;
     }
 
     @Override public TestCase create(TestCase.TestCaseBuilder builder) {
-        return repository.save(builder.build());
+        int id = repository.insert(builder.build());
+        return builder.withId(id).build();
     }
 
     @Override public Stream<TestCaseSearchResult> findAll() {

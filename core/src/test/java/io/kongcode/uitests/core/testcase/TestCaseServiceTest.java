@@ -28,14 +28,16 @@ public class TestCaseServiceTest {
     }
 
     @Test public void testCreate() throws Exception {
-        TestCase entity = TestCase.builder().build();
+        TestCase entity = TestCase.builder().withId(1).build();
         TestCase.TestCaseBuilder builder = mock(TestCase.TestCaseBuilder.class);
+        when(builder.withId(anyInt())).thenReturn(builder);
+        when(builder.build()).thenReturn(entity);
 
-        when(repository.save(entity)).thenReturn(entity);
+        when(repository.insert(entity)).thenReturn(entity.id);
         when(builder.build()).thenReturn(entity);
 
         assertEquals(entity, service.create(builder));
-        verify(repository).save(entity);
+        verify(repository).insert(entity);
     }
 
     @Test public void testFindAll() throws Exception {
