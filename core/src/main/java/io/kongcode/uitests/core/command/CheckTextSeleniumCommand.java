@@ -22,8 +22,8 @@ import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import io.kongcode.uitests.core.SerializableSeleniumCommand;
-
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -52,15 +52,10 @@ class CheckTextSeleniumCommand implements BasicCommand, SerializableSeleniumComm
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        CheckTextSeleniumCommand that = (CheckTextSeleniumCommand) o;
-        return Objects.equals(selector, that.selector) && Objects.equals(text, that.text);
+        return EqualsBuilder.reflectionEquals(this, o, false);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(selector, text);
+        return HashCodeBuilder.reflectionHashCode(this, false);
     }
 }

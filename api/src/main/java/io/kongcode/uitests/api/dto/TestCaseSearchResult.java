@@ -1,8 +1,8 @@
 package io.kongcode.uitests.api.dto;
 
 import io.kongcode.uitests.api.TestCase;
-
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Created by joao on 05/03/16.
@@ -22,15 +22,10 @@ public class TestCaseSearchResult {
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        TestCaseSearchResult that = (TestCaseSearchResult) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        return EqualsBuilder.reflectionEquals(this, o, false);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(id, name);
+        return HashCodeBuilder.reflectionHashCode(this, false);
     }
 }

@@ -21,8 +21,8 @@ import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import io.kongcode.uitests.core.SerializableSeleniumCommand;
-
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -50,15 +50,10 @@ class NavigateSeleniumCommand implements BasicCommand, SerializableSeleniumComma
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        NavigateSeleniumCommand that = (NavigateSeleniumCommand) o;
-        return Objects.equals(url, that.url);
+        return EqualsBuilder.reflectionEquals(this, o, false);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(url);
+        return HashCodeBuilder.reflectionHashCode(this, false);
     }
 }

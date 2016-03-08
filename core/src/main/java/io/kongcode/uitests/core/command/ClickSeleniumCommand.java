@@ -21,8 +21,8 @@ import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import io.kongcode.uitests.core.SerializableSeleniumCommand;
-
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -50,15 +50,10 @@ class ClickSeleniumCommand implements BasicCommand, SerializableSeleniumCommand 
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        ClickSeleniumCommand that = (ClickSeleniumCommand) o;
-        return Objects.equals(selector, that.selector);
+        return EqualsBuilder.reflectionEquals(this, o, false);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(selector);
+        return HashCodeBuilder.reflectionHashCode(this, false);
     }
 }
