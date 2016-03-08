@@ -19,6 +19,9 @@ package io.kongcode.uitests.core.testcase;
 
 import io.kongcode.uitests.api.Command;
 import io.kongcode.uitests.api.TestCase;
+import io.kongcode.uitests.api.basic.BasicCommand;
+import io.kongcode.uitests.api.basic.BasicCommandType;
+import io.kongcode.uitests.core.command.BasicSeleniumCommandFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +32,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
 
 /**
  * Created by jperondini on 07/03/2016.
@@ -39,41 +44,41 @@ import static org.mockito.Mockito.*;
 @SpringApplicationConfiguration(TestCaseRepositoryITest.class)
 public class TestCaseRepositoryITest {
 
-    private static final String testValue = "testValue";
     @Autowired private TestCaseRepository repository;
 
     @Test public void testInsert() throws Exception {
-        String name = "Test";
-
-        TestCaseRepositoryITestCommand commandMock = mock(TestCaseRepositoryITestCommand.class);
-        doAnswer(invocation -> invocation.callRealMethod()).when(commandMock).execute();
+        final String name = "Test";
+        final String selector = "selector";
+        final String text = "text";
+        final String url = "url";
+        final String value = "value";
+        List<Command> commands = Arrays
+            .asList(BasicSeleniumCommandFactory.createCheckText(selector, text),
+                BasicSeleniumCommandFactory.createClick(selector),
+                BasicSeleniumCommandFactory.createFillText(selector, text),
+                BasicSeleniumCommandFactory.createNavigate(url),
+                BasicSeleniumCommandFactory.createSelectCheckbox(selector),
+                BasicSeleniumCommandFactory.createSelectOption(selector, text),
+                BasicSeleniumCommandFactory.createSelectRadio(selector, value));
         TestCase.TestCaseBuilder builder = TestCase.builder().withName(name);
-        builder.command(commandMock);
+        commands.forEach(builder::command);
 
         Integer actualId = repository.insert(builder.build());
 
         TestCase testCase = repository.find(actualId);
-        //testCase.run();
 
         assertEquals(actualId, testCase.id);
         assertEquals(name, testCase.name);
-        //verify(commandMock).execute();
+
+        for (int i = 0; i < testCase.commands.size(); i++) {
+            BasicCommand command = (BasicCommand) testCase.commands.get(i);
+            BasicCommandType[] types = BasicCommandType.values();
+            assertEquals(types[i], command.getType());
+        }
     }
 
     @Bean public TestCaseRepository testCaseRepository(JdbcTemplate jdbcTemplate) {
         return new TestCaseRepositoryJdbc(jdbcTemplate);
-    }
-
-    private static class TestCaseRepositoryITestCommand implements Command {
-        private final String value;
-
-        TestCaseRepositoryITestCommand(String value) {
-            this.value = value;
-        }
-
-        @Override public void execute() {
-            assertEquals(testValue, value);
-        }
     }
 }
 

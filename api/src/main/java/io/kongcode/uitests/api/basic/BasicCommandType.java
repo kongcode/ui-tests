@@ -21,5 +21,5 @@ package io.kongcode.uitests.api.basic;
  * Created by jperondini on 02/03/2016.
  */
 public enum BasicCommandType {
-    NAVIGATE, CLICK, CHECK_TEXT, FILL_FIELD, SELECT_OPTION, SELECT_RADIO, SELECT_CHECKBOX;
+    CHECK_TEXT, CLICK, FILL_FIELD, NAVIGATE, SELECT_CHECKBOX, SELECT_OPTION, SELECT_RADIO;
 }
