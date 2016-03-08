@@ -8,9 +8,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -21,10 +19,12 @@ public class TestCaseServiceTest {
 
     private TestCaseService service;
     private TestCaseRepository repository;
+    private TestCaseSearchService searchService;
 
     @Before public void setUp() throws Exception {
         this.repository = mock(TestCaseRepository.class);
-        this.service = new TestCaseServiceImpl(repository);
+        this.searchService = mock(TestCaseSearchService.class);
+        this.service = new TestCaseServiceImpl(repository, searchService);
     }
 
     @Test public void testCreate() throws Exception {
@@ -43,10 +43,11 @@ public class TestCaseServiceTest {
     @Test public void testFindAll() throws Exception {
         int id = 1;
         String name = "Test";
-        TestCase testCase = TestCase.builder().withId(id).withName(name).build();
-        when(repository.streamAll()).thenReturn(Stream.of(testCase));
-        List<TestCaseSearchResult> expected = Arrays.asList(new TestCaseSearchResult(id, name));
-        Stream<TestCaseSearchResult> actual = service.findAll();
-        assertEquals(expected, actual.collect(toList()));
+        TestCaseSearchResult testCaseSearchResult = new TestCaseSearchResult(id, name);
+        List<TestCaseSearchResult> expected = Arrays.asList(testCaseSearchResult);
+        when(searchService.findAll()).thenReturn(expected);
+        Iterable<TestCaseSearchResult> actual = service.findAll();
+        assertEquals(expected, actual);
+        verify(searchService).findAll();
     }
 }

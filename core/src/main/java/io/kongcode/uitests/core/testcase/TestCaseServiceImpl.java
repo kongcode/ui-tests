@@ -5,17 +5,17 @@ import io.kongcode.uitests.api.TestCaseService;
 import io.kongcode.uitests.api.dto.TestCaseSearchResult;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Stream;
-
 /**
  * {@link io.kongcode.uitests.api.TestCaseService} Implementation
  */
 @Service class TestCaseServiceImpl implements TestCaseService {
 
     private final TestCaseRepository repository;
+    private final TestCaseSearchService searchService;
 
-    TestCaseServiceImpl(TestCaseRepository repository) {
+    TestCaseServiceImpl(TestCaseRepository repository, TestCaseSearchService searchService) {
         this.repository = repository;
+        this.searchService = searchService;
     }
 
     @Override public TestCase create(TestCase.TestCaseBuilder builder) {
@@ -23,7 +23,7 @@ import java.util.stream.Stream;
         return builder.withId(id).build();
     }
 
-    @Override public Stream<TestCaseSearchResult> findAll() {
-        return repository.streamAll().map(TestCaseSearchResult::new);
+    @Override public Iterable<TestCaseSearchResult> findAll() {
+        return searchService.findAll();
     }
 }

@@ -55,16 +55,6 @@ import java.util.stream.Stream;
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override public Stream<TestCase> streamAll() {
-        //TODO: Create the correct stream implementation or change the method name to List.
-        return jdbcTemplate.query("SELECT ID, NAME FROM TEST_CASE", (rs, rowNum) -> {
-            TestCase.TestCaseBuilder builder = TestCase.builder();
-            int i = 1;
-            builder.withId(rs.getInt(i++)).withName(rs.getString(i++));
-            return builder.build();
-        }).stream();
-    }
-
     @Override public Integer insert(TestCase testCase) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> createInsertTestCasePreparedStatement(testCase, con), keyHolder);
