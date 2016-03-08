@@ -15,11 +15,22 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api.basic;
+package io.kongcode.uitests.core.testcase;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- * Created by jperondini on 02/03/2016.
+ * Created by jperondini on 08/03/2016.
  */
-public enum BasicCommandType {
-    CHECK_TEXT, CLICK, FILL_FIELD, NAVIGATE, SELECT_CHECKBOX, SELECT_OPTION, SELECT_RADIO;
+@Configuration @EnableAutoConfiguration public class TestCaseITestConfiguration {
+    @Bean public TestCaseSearchService testCaseSearchService(JdbcTemplate jdbcTemplate) {
+        return new TestCaseSearchServiceJdbc(jdbcTemplate);
+    }
+
+    @Bean public TestCaseRepository testCaseRepository(JdbcTemplate jdbcTemplate) {
+        return new TestCaseRepositoryJdbc(jdbcTemplate);
+    }
 }

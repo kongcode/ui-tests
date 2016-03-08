@@ -17,6 +17,8 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
+import io.kongcode.uitests.api.Command;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
@@ -36,5 +38,24 @@ public class SelectOptionSeleniumCommandTest {
         assertEquals(selectSelector, selectOptionCommand.selectSelector);
         assertEquals(optionValue, selectOptionCommand.optionValue);
         assertEquals(BasicCommandType.SELECT_OPTION, selectOptionCommand.getType());
+    }
+
+    @Test public void testSerialize() throws Exception {
+        String selectSelector = "selectSelector";
+        String optionValue = "optionValue";
+        SelectOptionSeleniumCommand selectOptionCommand =
+            (SelectOptionSeleniumCommand) BasicSeleniumCommandFactory
+                .createSelectOption(selectSelector, optionValue);
+        assertEquals(new Gson().toJson(selectOptionCommand), selectOptionCommand.serialize());
+    }
+
+    @Test public void testParse() throws Exception {
+        String selector = "selector";
+        String text = "text";
+        Command command = BasicSeleniumCommandFactory.createSelectOption(selector, text);
+        Command fromSerializedCommand = BasicSeleniumCommandFactory
+            .createFromSerializedCommand(BasicCommandType.SELECT_OPTION,
+                new Gson().toJson(command));
+        assertEquals(command, fromSerializedCommand);
     }
 }

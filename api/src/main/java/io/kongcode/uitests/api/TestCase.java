@@ -27,7 +27,7 @@ public final class TestCase {
 
     public final Integer id;
     public final String name;
-    private final List<Command> commands;
+    public final List<Command> commands;
 
     private TestCase(Integer id, String name, List<Command> commands) {
         this.id = id;

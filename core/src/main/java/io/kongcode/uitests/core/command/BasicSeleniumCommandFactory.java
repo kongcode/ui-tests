@@ -17,7 +17,9 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.Command;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 /**
  * Created by jperondini on 02/03/2016.
@@ -51,5 +53,36 @@ public class BasicSeleniumCommandFactory {
 
     public static Command createSelectCheckbox(String selector) {
         return new SelectCheckboxSeleniumCommand(selector);
+    }
+
+    public static Command createFromSerializedCommand(BasicCommandType type, String data) {
+        final Gson gson = new Gson();
+        Command command;
+        switch (type) {
+            case CHECK_TEXT:
+                command = gson.fromJson(data, CheckTextSeleniumCommand.class);
+                break;
+            case CLICK:
+                command = gson.fromJson(data, ClickSeleniumCommand.class);
+                break;
+            case FILL_FIELD:
+                command = gson.fromJson(data, FillTextSeleniumCommand.class);
+                break;
+            case NAVIGATE:
+                command = gson.fromJson(data, NavigateSeleniumCommand.class);
+                break;
+            case SELECT_CHECKBOX:
+                command = gson.fromJson(data, SelectCheckboxSeleniumCommand.class);
+                break;
+            case SELECT_OPTION:
+                command = gson.fromJson(data, SelectOptionSeleniumCommand.class);
+                break;
+            case SELECT_RADIO:
+                command = gson.fromJson(data, SelectRadioSeleniumCommand.class);
+                break;
+            default:
+                throw new UnsupportedOperationException("Invalid command type");
+        }
+        return command;
     }
 }

@@ -15,11 +15,17 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api.basic;
+package io.kongcode.uitests.core;
 
 /**
- * Created by jperondini on 02/03/2016.
+ * Interface of Commands Serializer.
  */
-public enum BasicCommandType {
-    CHECK_TEXT, CLICK, FILL_FIELD, NAVIGATE, SELECT_CHECKBOX, SELECT_OPTION, SELECT_RADIO;
+public interface SerializableSeleniumCommand {
+
+    /**
+     * Serializes a basic command.
+     *
+     * @return The seralized string.
+     */
+    String serialize();
 }

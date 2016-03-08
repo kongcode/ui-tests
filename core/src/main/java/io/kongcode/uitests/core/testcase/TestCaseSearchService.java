@@ -15,11 +15,14 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.kongcode.uitests.api.basic;
+package io.kongcode.uitests.core.testcase;
+
+import io.kongcode.uitests.api.dto.TestCaseSearchResult;
 
 /**
- * Created by jperondini on 02/03/2016.
+ * Created by jperondini on 08/03/2016.
  */
-public enum BasicCommandType {
-    CHECK_TEXT, CLICK, FILL_FIELD, NAVIGATE, SELECT_CHECKBOX, SELECT_OPTION, SELECT_RADIO;
+interface TestCaseSearchService {
+
+    Iterable<TestCaseSearchResult> findAll();
 }
