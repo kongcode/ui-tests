@@ -65,6 +65,9 @@ public class BasicSeleniumCommandFactory {
             case CLICK:
                 command = gson.fromJson(data, ClickSeleniumCommand.class);
                 break;
+            case FILL_FIELD:
+                command = gson.fromJson(data, FillTextSeleniumCommand.class);
+                break;
             default:
                 throw new UnsupportedOperationException("Invalid command type");
         }
