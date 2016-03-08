@@ -77,6 +77,9 @@ public class BasicSeleniumCommandFactory {
             case SELECT_OPTION:
                 command = gson.fromJson(data, SelectOptionSeleniumCommand.class);
                 break;
+            case SELECT_RADIO:
+                command = gson.fromJson(data, SelectRadioSeleniumCommand.class);
+                break;
             default:
                 throw new UnsupportedOperationException("Invalid command type");
         }

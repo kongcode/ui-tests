@@ -22,6 +22,8 @@ import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import io.kongcode.uitests.core.SerializableSeleniumCommand;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -47,5 +49,19 @@ class SelectRadioSeleniumCommand implements BasicCommand, SerializableSeleniumCo
 
     @Override public String serialize() {
         return new Gson().toJson(this);
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        SelectRadioSeleniumCommand that = (SelectRadioSeleniumCommand) o;
+        return Objects.equals(radioSelector, that.radioSelector) && Objects
+            .equals(radioValue, that.radioValue);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(radioSelector, radioValue);
     }
 }
