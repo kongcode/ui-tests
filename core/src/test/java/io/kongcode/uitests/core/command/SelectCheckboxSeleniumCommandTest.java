@@ -1,5 +1,6 @@
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
@@ -16,5 +17,12 @@ public class SelectCheckboxSeleniumCommandTest {
             (SelectCheckboxSeleniumCommand) BasicSeleniumCommandFactory.createSelectCheckbox(selector);
         assertEquals(selector, command.selector);
         assertEquals (BasicCommandType.SELECT_CHECKBOX, command.getType());
+    }
+
+    @Test public void testSerialize() throws Exception {
+        String selector = "selector";
+        SelectCheckboxSeleniumCommand command =
+            (SelectCheckboxSeleniumCommand) BasicSeleniumCommandFactory.createSelectCheckbox(selector);
+        assertEquals(new Gson().toJson(command), command.serialize());
     }
 }
