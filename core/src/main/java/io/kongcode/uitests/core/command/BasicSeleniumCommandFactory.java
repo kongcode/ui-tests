@@ -17,7 +17,9 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.Command;
+import io.kongcode.uitests.api.basic.BasicCommandType;
 
 /**
  * Created by jperondini on 02/03/2016.
@@ -51,5 +53,15 @@ public class BasicSeleniumCommandFactory {
 
     public static Command createSelectCheckbox(String selector) {
         return new SelectCheckboxSeleniumCommand(selector);
+    }
+
+    public static Command createFromSerializedCommand(BasicCommandType type, String data) {
+        switch (type) {
+            case CHECK_TEXT:
+                return new Gson().fromJson(data, CheckTextSeleniumCommand.class);
+            default:
+                return null;
+        }
+
     }
 }
