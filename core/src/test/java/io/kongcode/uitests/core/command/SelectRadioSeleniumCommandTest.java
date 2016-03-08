@@ -17,6 +17,7 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
@@ -35,5 +36,13 @@ public class SelectRadioSeleniumCommandTest {
         assertEquals(radioSelector, command.radioSelector);
         assertEquals(value, command.radioValue);
         assertEquals(BasicCommandType.SELECT_RADIO, command.getType());
+    }
+
+    @Test public void testSerialize() throws Exception {
+        String radioSelector = "radioSelector";
+        String value = "radioValue";
+        SelectRadioSeleniumCommand command =
+            (SelectRadioSeleniumCommand) BasicSeleniumCommandFactory.createSelectRadio(radioSelector, value);
+        assertEquals(new Gson().toJson(command), command.serialize());
     }
 }
