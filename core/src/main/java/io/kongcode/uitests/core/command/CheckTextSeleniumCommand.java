@@ -18,15 +18,17 @@
 package io.kongcode.uitests.core.command;
 
 import com.codeborne.selenide.Condition;
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
+import io.kongcode.uitests.core.SerializableSeleniumCommand;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class CheckTextSeleniumCommand implements BasicCommand {
+class CheckTextSeleniumCommand implements BasicCommand, SerializableSeleniumCommand {
     public final String selector;
     public final String text;
 
@@ -41,5 +43,9 @@ class CheckTextSeleniumCommand implements BasicCommand {
 
     @Override public void execute() {
         $(selector).shouldHave(Condition.text(text));
+    }
+
+    @Override public String serialize() {
+        return new Gson().toJson(this);
     }
 }
