@@ -17,15 +17,17 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
+import io.kongcode.uitests.core.SerializableSeleniumCommand;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by jperondini on 03/03/2016.
  */
-class SelectOptionSeleniumCommand implements BasicCommand {
+class SelectOptionSeleniumCommand implements BasicCommand, SerializableSeleniumCommand {
     public final String selectSelector;
     public final String optionValue;
 
@@ -40,5 +42,9 @@ class SelectOptionSeleniumCommand implements BasicCommand {
 
     @Override public void execute() {
         $(selectSelector).selectOptionByValue(optionValue);
+    }
+
+    @Override public String serialize() {
+        return new Gson().toJson(this);
     }
 }
