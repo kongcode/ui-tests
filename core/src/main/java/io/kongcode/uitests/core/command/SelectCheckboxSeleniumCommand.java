@@ -5,6 +5,8 @@ import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import io.kongcode.uitests.core.SerializableSeleniumCommand;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -28,5 +30,18 @@ class SelectCheckboxSeleniumCommand implements BasicCommand, SerializableSeleniu
 
     @Override public String serialize() {
         return new Gson().toJson(this);
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        SelectCheckboxSeleniumCommand that = (SelectCheckboxSeleniumCommand) o;
+        return Objects.equals(selector, that.selector);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(selector);
     }
 }
