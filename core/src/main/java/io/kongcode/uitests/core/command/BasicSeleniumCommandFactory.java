@@ -74,6 +74,9 @@ public class BasicSeleniumCommandFactory {
             case SELECT_CHECKBOX:
                 command = gson.fromJson(data, SelectCheckboxSeleniumCommand.class);
                 break;
+            case SELECT_OPTION:
+                command = gson.fromJson(data, SelectOptionSeleniumCommand.class);
+                break;
             default:
                 throw new UnsupportedOperationException("Invalid command type");
         }
