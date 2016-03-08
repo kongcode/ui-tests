@@ -17,7 +17,9 @@
 package io.kongcode.uitests.core.command;
 
 import com.google.gson.Gson;
+import io.kongcode.uitests.api.Command;
 import io.kongcode.uitests.api.basic.BasicCommandType;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -40,5 +42,13 @@ public class NavigateSeleniumCommandTest {
         NavigateSeleniumCommand command =
             (NavigateSeleniumCommand) BasicSeleniumCommandFactory.createNavigate(url);
         assertEquals(new Gson().toJson(command), command.serialize());
+    }
+
+    @Test public void testParse() throws Exception {
+        String url = "url";
+        Command command = BasicSeleniumCommandFactory.createNavigate(url);
+        Command fromSerializedCommand = BasicSeleniumCommandFactory
+            .createFromSerializedCommand(BasicCommandType.NAVIGATE, new Gson().toJson(command));
+        TestCase.assertEquals(command, fromSerializedCommand);
     }
 }

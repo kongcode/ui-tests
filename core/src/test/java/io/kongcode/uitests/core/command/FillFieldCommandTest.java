@@ -18,6 +18,7 @@
 package io.kongcode.uitests.core.command;
 
 import com.google.gson.Gson;
+import io.kongcode.uitests.api.Command;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
@@ -44,5 +45,14 @@ public class FillFieldCommandTest {
         FillTextSeleniumCommand command =
             (FillTextSeleniumCommand) BasicSeleniumCommandFactory.createFillText(selector, text);
         assertEquals(new Gson().toJson(command), command.serialize());
+    }
+
+    @Test public void testParse() throws Exception {
+        String text = "text";
+        String selector = "selector";
+        Command command = BasicSeleniumCommandFactory.createFillText(selector, text);
+        Command fromSerializedCommand = BasicSeleniumCommandFactory
+            .createFromSerializedCommand(BasicCommandType.FILL_FIELD, new Gson().toJson(command));
+        assertEquals(command, fromSerializedCommand);
     }
 }

@@ -22,6 +22,8 @@ import io.kongcode.uitests.api.basic.BasicCommand;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import io.kongcode.uitests.core.SerializableSeleniumCommand;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -46,5 +48,18 @@ class FillTextSeleniumCommand implements BasicCommand, SerializableSeleniumComma
 
     @Override public String serialize() {
         return new Gson().toJson(this);
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        FillTextSeleniumCommand that = (FillTextSeleniumCommand) o;
+        return Objects.equals(selector, that.selector) && Objects.equals(text, that.text);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(selector, text);
     }
 }
