@@ -17,6 +17,7 @@
 
 package io.kongcode.uitests.core.testcase;
 
+import io.kongcode.uitests.api.Command;
 import io.kongcode.uitests.api.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by jperondini on 07/03/2016.
@@ -37,24 +39,41 @@ import static org.junit.Assert.assertEquals;
 @SpringApplicationConfiguration(TestCaseRepositoryITest.class)
 public class TestCaseRepositoryITest {
 
+    private static final String testValue = "testValue";
+    @Autowired private TestCaseRepository repository;
+
+    @Test public void testInsert() throws Exception {
+        String name = "Test";
+
+        TestCaseRepositoryITestCommand commandMock = mock(TestCaseRepositoryITestCommand.class);
+        doAnswer(invocation -> invocation.callRealMethod()).when(commandMock).execute();
+        TestCase.TestCaseBuilder builder = TestCase.builder().withName(name);
+        builder.command(commandMock);
+
+        Integer actualId = repository.insert(builder.build());
+
+        TestCase testCase = repository.find(actualId);
+        //testCase.run();
+
+        assertEquals(actualId, testCase.id);
+        assertEquals(name, testCase.name);
+        //verify(commandMock).execute();
+    }
 
     @Bean public TestCaseRepository testCaseRepository(JdbcTemplate jdbcTemplate) {
         return new TestCaseRepositoryJdbc(jdbcTemplate);
     }
 
-    @Autowired private TestCaseRepository repository;
+    private static class TestCaseRepositoryITestCommand implements Command {
+        private final String value;
 
-    @Test public void testInsertAndStream() throws Exception {
-        String name = "Test";
-        String selector = "selector";
-        String text = "text";
+        TestCaseRepositoryITestCommand(String value) {
+            this.value = value;
+        }
 
-        TestCase.TestCaseBuilder builder = TestCase.builder().withName(name);
-        //builder.command(BasicSeleniumCommandFactory.createCheckText(selector, text));
-        Integer actualId = repository.insert(builder.build());
-
-        TestCase testCase = repository.streamAll().findFirst().get();
-        assertEquals(actualId, testCase.id);
-        assertEquals(name, testCase.name);
+        @Override public void execute() {
+            assertEquals(testValue, value);
+        }
     }
 }
+

@@ -23,7 +23,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.stream.Stream;
 
@@ -31,6 +33,10 @@ import java.util.stream.Stream;
  * Created by jperondini on 07/03/2016.
  */
 @Component class TestCaseRepositoryJdbc implements TestCaseRepository {
+
+    public static final String TEST_CASE_INSERT = "INSERT INTO TEST_CASE VALUES (NULL, ?)";
+    private static final String INSERT_TEST_CASE_COMMAND =
+        "INSERT INTO TEST_CASE_COMMAND VALUES (?, ?, NULL, ?)";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -49,14 +55,27 @@ import java.util.stream.Stream;
     }
 
     @Override public Integer insert(TestCase testCase) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(con -> {
-            PreparedStatement preparedStatement =
-                con.prepareStatement("INSERT INTO TEST_CASE VALUES (NULL, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, testCase.name);
-            return preparedStatement;
-        }, keyHolder);
-        return keyHolder.getKey().intValue();
+        final KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(con -> createInsertTestCasePreparedStatement(testCase, con), keyHolder);
+        final int testCaseId = keyHolder.getKey().intValue();
+        return testCaseId;
+    }
+
+    @Override public TestCase find(Integer id) {
+        return jdbcTemplate
+            .queryForObject("SELECT ID, NAME FROM TEST_CASE WHERE ID = ?", (rs, rowNum) -> {
+                TestCase.TestCaseBuilder builder = TestCase.builder();
+                int i = 1;
+                builder.withId(rs.getInt(i++)).withName(rs.getString(i++));
+                return builder.build();
+            }, id);
+    }
+
+    private PreparedStatement createInsertTestCasePreparedStatement(TestCase testCase,
+        Connection con) throws SQLException {
+        final PreparedStatement preparedStatement =
+            con.prepareStatement(TEST_CASE_INSERT, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1, testCase.name);
+        return preparedStatement;
     }
 }

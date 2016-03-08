@@ -11,4 +11,6 @@ interface TestCaseRepository {
     Stream<TestCase> streamAll();
 
     Integer insert(TestCase testCase);
+
+    TestCase find(Integer id);
 }
