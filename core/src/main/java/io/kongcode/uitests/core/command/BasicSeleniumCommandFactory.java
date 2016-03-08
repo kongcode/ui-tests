@@ -56,12 +56,18 @@ public class BasicSeleniumCommandFactory {
     }
 
     public static Command createFromSerializedCommand(BasicCommandType type, String data) {
+        final Gson gson = new Gson();
+        Command command;
         switch (type) {
             case CHECK_TEXT:
-                return new Gson().fromJson(data, CheckTextSeleniumCommand.class);
+                command = gson.fromJson(data, CheckTextSeleniumCommand.class);
+                break;
+            case CLICK:
+                command = gson.fromJson(data, ClickSeleniumCommand.class);
+                break;
             default:
-                return null;
+                throw new UnsupportedOperationException("Invalid command type");
         }
-
+        return command;
     }
 }
