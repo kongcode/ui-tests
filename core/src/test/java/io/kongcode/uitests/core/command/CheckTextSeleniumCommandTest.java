@@ -50,11 +50,9 @@ public class CheckTextSeleniumCommandTest {
     @Test public void testParse() throws Exception {
         String selector = "selector";
         String text = "text";
-        CheckTextSeleniumCommand command =
-            (CheckTextSeleniumCommand) BasicSeleniumCommandFactory.createCheckText(selector, text);
-        String data = new Gson().toJson(command);
+        Command command = BasicSeleniumCommandFactory.createCheckText(selector, text);
         Command fromSerializedCommand = BasicSeleniumCommandFactory
-            .createFromSerializedCommand(BasicCommandType.CHECK_TEXT, data);
+            .createFromSerializedCommand(BasicCommandType.CHECK_TEXT, new Gson().toJson(command));
         assertEquals(command, fromSerializedCommand);
     }
 }

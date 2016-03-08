@@ -47,11 +47,9 @@ public class ClickSeleniumCommandTest {
 
     @Test public void testParse() throws Exception {
         String selector = "selector";
-        ClickSeleniumCommand command =
-            (ClickSeleniumCommand) BasicSeleniumCommandFactory.createClick(selector);
-        String data = new Gson().toJson(command);
-        Command fromSerializedCommand =
-            BasicSeleniumCommandFactory.createFromSerializedCommand(BasicCommandType.CLICK, data);
+        Command command = BasicSeleniumCommandFactory.createClick(selector);
+        Command fromSerializedCommand = BasicSeleniumCommandFactory
+            .createFromSerializedCommand(BasicCommandType.CLICK, new Gson().toJson(command));
         TestCase.assertEquals(command, fromSerializedCommand);
     }
 }
