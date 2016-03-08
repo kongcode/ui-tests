@@ -19,15 +19,14 @@ package io.kongcode.uitests.core.testcase;
 
 import io.kongcode.uitests.api.TestCase;
 import io.kongcode.uitests.api.dto.TestCaseSearchResult;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +37,19 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by jperondini on 08/03/2016.
  */
-@Configuration @EnableAutoConfiguration @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(TestCaseSearchServiceITest.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(TestCaseITestConfiguration.class)
 public class TestCaseSearchServiceITest {
 
     @Autowired private TestCaseRepository repository;
 
     @Autowired private TestCaseSearchService searchService;
+
+    @Autowired private JdbcTemplate jdbcTemplate;
+
+    @Before public void setUp() throws Exception {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "TEST_CASE_COMMAND", "TEST_CASE");
+    }
 
     @Test public void testFindAll() throws Exception {
         TestCase.TestCaseBuilder builder = TestCase.builder();
@@ -57,13 +62,5 @@ public class TestCaseSearchServiceITest {
         List<TestCaseSearchResult> expected =
             testCaseList.stream().map(TestCaseSearchResult::new).collect(Collectors.toList());
         assertEquals(expected, searchService.findAll());
-    }
-
-    @Bean public TestCaseSearchService testCaseSearchService(JdbcTemplate jdbcTemplate) {
-        return new TestCaseSearchServiceJdbc(jdbcTemplate);
-    }
-
-    @Bean public TestCaseRepository testCaseRepository(JdbcTemplate jdbcTemplate) {
-        return new TestCaseRepositoryJdbc(jdbcTemplate);
     }
 }
