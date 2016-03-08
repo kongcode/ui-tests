@@ -17,6 +17,7 @@
 
 package io.kongcode.uitests.core.command;
 
+import com.google.gson.Gson;
 import io.kongcode.uitests.api.basic.BasicCommandType;
 import org.junit.Test;
 
@@ -29,9 +30,16 @@ public class ClickSeleniumCommandTest {
 
     @Test public void testFactory() throws Exception {
         String selector = "selector";
-        ClickSeleniumCommand command = (ClickSeleniumCommand) BasicSeleniumCommandFactory
-            .createClick(selector);
+        ClickSeleniumCommand command =
+            (ClickSeleniumCommand) BasicSeleniumCommandFactory.createClick(selector);
         assertEquals(selector, command.selector);
         assertEquals(BasicCommandType.CLICK, command.getType());
+    }
+
+    @Test public void testSerialize() throws Exception {
+        String selector = "selector";
+        ClickSeleniumCommand command =
+            (ClickSeleniumCommand) BasicSeleniumCommandFactory.createClick(selector);
+        assertEquals(new Gson().toJson(command), command.serialize());
     }
 }
